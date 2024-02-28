@@ -1,0 +1,6 @@
+<p>BookList works!</p> 
+
+@for (book of bookList; track book.id) {
+    <li (click)="selectBook(book)">{{ book.title }}</li>
+  }
+  
