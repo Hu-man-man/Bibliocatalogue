@@ -1,6 +1,22 @@
-<p>BookList works!</p> 
+<!-- <p>BookList works!</p> 
 
 @for (book of bookList; track book.id) {
     <li (click)="selectBook(book)">{{ book.title }}</li>
   }
-  
+   -->
+   <div>
+     @for( book of bookList; track book.id) {
+       <li>
+         <a (click)="selectBook(book)">{{ book.title }}</a>
+       </li>
+     }
+   </div>
+   <div>
+    @if(selectedBook) { 
+      <div>
+        <h2>{{ selectedBook.title }}</h2>
+        <p>Author: {{ selectedBook.author }}</p>
+        <p>Date: {{ selectedBook.date }}</p>
+      </div>
+    }
+  </div>

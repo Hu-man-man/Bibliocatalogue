@@ -76,7 +76,13 @@
             "development": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.development.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -98,6 +104,23 @@
           "options": {
             "buildTarget": "bibliocatalogue:build"
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "version": 2
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "bibliocatalogue:build:production",
+              "serveTarget": "bibliocatalogue:serve:production"
+            },
+            "development": {
+              "buildTarget": "bibliocatalogue:build:development",
+              "serveTarget": "bibliocatalogue:serve:development"
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     }

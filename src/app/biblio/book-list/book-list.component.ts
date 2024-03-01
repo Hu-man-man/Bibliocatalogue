@@ -1,23 +1,30 @@
-import { Component } from '@angular/core';
-import { BOOKS } from '../mock-book-list';
+
+import { Component, OnInit } from '@angular/core';
 import { Book } from '../book';
+import { BookService } from '../book.service';
 
 @Component({
   selector: 'app-book-list',
   standalone: true,
-  imports: [],
   templateUrl: './book-list.component.html',
-  styles: ``
 })
-export class BookListComponent {
-  bookList: Book[] = BOOKS;
+export class BookListComponent implements OnInit {
+  bookList: Book[] = [];
+  selectedBook: Book | null = null; // Initialize selectedBook to null
+
+  constructor(private bookService: BookService) {} 
 
   ngOnInit() {
-    // console.table(this.bookList);
+    this.bookService.getBookList().then((books) => {
+      this.bookList = books;
+      })
+      .catch((error: any) => {
+        console.error('Error fetching books:', error);
+      });
   }
 
   selectBook(book: Book) {
-    console.log(`Vous avec sélectionné ${book.title}`);
+    this.selectedBook = book;
+    console.log('Book selected '+ this.selectedBook.title);
   }
-
 }

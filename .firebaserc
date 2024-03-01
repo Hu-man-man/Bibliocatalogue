@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "bibliocatalogue-b35e7": {
+      "hosting": {
+        "bibliocatalogue": [
+          "bibliocatalogue-b35e7"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "bibliocatalogue-b35e7"
+  }
+}

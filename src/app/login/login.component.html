@@ -1,2 +1,20 @@
-<p>connection works!</p>
-<mat-slide-toggle>Toggle me!</mat-slide-toggle>
+<!-- <p>connection works!</p>
+
+<button mat-button>Connection</button>
+<button mat-button>Déconnection</button> -->
+
+<p>Connexion fonctionne !</p>
+
+<div (click)="login()">
+  <button mat-icon>login</button>
+  Se connecter avec Google
+</div>
+<div>
+    <button mat-raised-button (click)="logout()">
+      Déconnexion
+    </button>
+</div>
+
+@if (currentUser) {
+  <p>Bienvenue, {{currentUser.displayName}}</p>
+}
