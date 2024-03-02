@@ -1,10 +1,5 @@
-<!-- <p>BookList works!</p> 
-
-@for (book of bookList; track book.id) {
-    <li (click)="selectBook(book)">{{ book.title }}</li>
-  }
-   -->
    <div>
+    <!-- <button mat-raised-button (click)="openDialog()">Pick one</button> -->
      @for( book of bookList; track book.id) {
        <li>
          <a (click)="selectBook(book)">{{ book.title }}</a>
@@ -20,3 +15,9 @@
       </div>
     }
   </div>
+  @if(currentUser){
+    <div>
+      <h2>Books de {{currentUser.displayName}}</h2>
+    </div>
+  }
+  <app-edit-book></app-edit-book>

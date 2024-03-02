@@ -30,18 +30,34 @@
 
 
 
-// import { inject } from '@angular/core';
-// import { Router } from '@angular/router';
 
-// export const authGuard = () => {
-//   const router: Router = inject(Router);
-//   const user = JSON.parse(localStorage.getItem('user')!);
-//   if (user) {
-//     return true;
-//   }
-//   router.navigate(['/', 'login']);
-//   return false;
-// }
+
+
+
+
+import { inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { Auth } from '@angular/fire/auth';
+
+export const authGuard = () => {
+  // const router: Router = inject(Router);
+  // const auth: Auth = inject(Auth);
+  
+  // if (auth.currentUser) {
+  //   console.log('connectéééé')
+  //   return true;
+  // }
+  // router.navigate(['/', 'login']);
+  // console.log('utilisateur déconnectéééééééééé'+ auth)
+  // return false;
+
+  return true
+}
+
+
+
+
+
 
 // import { CanActivateFn } from "@angular/router";
 // import { inject } from "@angular/core";
@@ -55,17 +71,19 @@
 //   return isLoggedIn;
 // };
 
-import { Observable } from 'rxjs';
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
-import 'firebase/compat/firestore';
+// import { Observable } from 'rxjs';
+// // import firebase from 'firebase/compat/app';
+// import 'firebase/compat/auth';
+// import 'firebase/compat/firestore';
 
-export function authGuard(): boolean | Promise<boolean> | Observable<boolean> {
-  const isLoggedIn = !!firebase.auth().currentUser;
-  if (!isLoggedIn) {
-    // Rediriger vers la page de connexion
-    window.location.href = '/login';
-    return false;
-  }
-  return true;
-}
+// export function authGuard(): boolean | Promise<boolean> | Observable<boolean> {
+//   // const isLoggedIn = !!firebase.auth().currentUser;
+//   // if (!isLoggedIn) {
+//   //   // Rediriger vers la page de connexion
+//   //   window.location.href = '/login';
+//   //   console.log(isLoggedIn)
+//   //   return false;
+//   // }
+//   // console.log(isLoggedIn)
+//   return true;
+// }

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { Auth, GoogleAuthProvider, signInWithPopup, signOut } from  '@angular/fire/auth';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { Router } from '@angular/router';
@@ -13,7 +13,6 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
   constructor(private auth: Auth, private router: Router) {}
-  // private auth: Auth = inject(Auth);
 
   get currentUser() {
     return this.auth.currentUser;
@@ -25,7 +24,6 @@ export class LoginComponent {
       const result = await signInWithPopup(this.auth, provider);
       // Traiter les informations de l'utilisateur connecté
       console.log(result.user);
-      // const router: Router = inject(Router);
       this.router.createUrlTree(['/', 'book-list']);
 
     } catch (error) {
