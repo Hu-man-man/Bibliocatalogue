@@ -4,4 +4,5 @@ export class Book {
     date: Date | undefined;
     author: string | undefined;
     tags: string[] | undefined;
+    userId: string | undefined;
 }
