@@ -19,7 +19,7 @@ import { MatDividerModule } from "@angular/material/divider";
 import { MatButtonModule } from "@angular/material/button";
 
 @Component({
-  selector: "app-edit-book",
+  selector: "app-new-book",
   standalone: true,
   imports: [
     CommonModule,
@@ -37,22 +37,26 @@ import { MatButtonModule } from "@angular/material/button";
   templateUrl: "./edit-book.component.html",
   styles: ``,
 })
-export class EditBookComponent implements OnInit {
+export class NewBookComponent implements OnInit {
   selectedBook: Book | undefined;
   tempBook: Book | undefined;
-  editMode = false;
+  editMode = true;
   new: Date | undefined;
   isFormValid: boolean = false;
 
-  constructor(
-    private dataBookService: DataBookService,
-    private bookService: BookService,
-    private dialogRef: MatDialogRef<EditBookComponent>
-  ) {}
+  constructor(private bookService: BookService) {
+    this.tempBook = new Book();
+  }
 
-  ngOnInit() {
-    // Récupère les données du livre sélectionné
-    this.selectedBook = this.dataBookService.getData();
+  ngOnInit(): void {
+    this.tempBook = {
+      bookId: "",
+      title: "Nouveau livre",
+      date: new Date(),
+      author: "",
+      tags: [],
+      userId: "",
+    };
   }
 
   switchToEditMode(): void {
@@ -75,31 +79,28 @@ export class EditBookComponent implements OnInit {
   // Supprime le livre
   deleteBook() {
     if (this.selectedBook?.bookId) {
-      this.bookService.deleteBook(this.selectedBook.bookId)
-      .catch((error) => {
-        console.error("Error updating book:", error);
-      });
+      this.bookService
+        .deleteBook(this.selectedBook.bookId)
+        .catch((error) => {
+          console.error("Error updating book:", error);
+        });
     }
   }
 
-
   //Enregistre les modification du livre
   saveModifications(): void {
-    if (this.tempBook && typeof this.tempBook.date === "string") {
-      // Convertir la date en chaîne de caractères en un objet Date
-      this.tempBook.date = new Date(this.tempBook.date);
-    }
-    this.editMode = false;
-    if (this.selectedBook !== this.tempBook) {
-      this.selectedBook = this.tempBook;
-      if (this.selectedBook) {
+    if (this.isFormValid) {
+      if (this.tempBook && typeof this.tempBook.date === "string") {
+        // Convertir la date en chaîne de caractères en un objet Date
+        this.tempBook.date = new Date(this.tempBook.date);
+      }
+      this.editMode = false;
+      if (this.tempBook) {
         this.bookService
-          .updateBook(this.selectedBook)
-          .then(() => {
-            this.dialogRef.close({ book: this.selectedBook }); // Emit update event
-          })
+          .createBook(this.tempBook)
+          .then(() => {})
           .catch((error) => {
-            console.error("Error updating book:", error);
+            console.error("Error creating book:", error);
           });
       }
     }
