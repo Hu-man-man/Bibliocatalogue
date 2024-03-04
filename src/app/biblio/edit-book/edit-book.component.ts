@@ -1,7 +1,6 @@
-import { Component, OnInit, OnChanges, SimpleChanges } from "@angular/core";
+import { Component, OnInit, OnChanges, SimpleChanges, Inject } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { Book } from "../book";
-import { DataBookService } from "../data-book.service";
 import { BookService } from "../book.service";
 import {
   MatDialogRef,
@@ -9,6 +8,7 @@ import {
   MatDialogContent,
   MatDialogActions,
   MatDialogClose,
+  MAT_DIALOG_DATA,
 } from "@angular/material/dialog";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatFormFieldModule } from "@angular/material/form-field";
@@ -40,19 +40,36 @@ import { MatButtonModule } from "@angular/material/button";
 export class EditBookComponent implements OnInit {
   selectedBook: Book | undefined;
   tempBook: Book | undefined;
-  editMode = false;
+  editMode: boolean = false; // Start in display mode
+  newBook: boolean = false; // Flag to differentiate between creating and editing
   new: Date | undefined;
   isFormValid: boolean = false;
 
   constructor(
-    private dataBookService: DataBookService,
     private bookService: BookService,
-    private dialogRef: MatDialogRef<EditBookComponent>
+    private dialogRef: MatDialogRef<EditBookComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: Book,
   ) {}
 
-  ngOnInit() {
-    // Récupère les données du livre sélectionné
-    this.selectedBook = this.dataBookService.getData();
+  ngOnInit(): void {
+    // Check if selectedBook is provided for editing, otherwise initialize new book
+    this.selectedBook = this.data as Book;
+    if (this.selectedBook) {
+      this.tempBook = { ...this.selectedBook };
+      this.newBook = false;
+    } else {
+      this.tempBook = {
+        bookId: "",
+        title: "Nouveau livre",
+        date: new Date(),
+        author: "",
+        tags: [],
+        userId: "",
+      };
+      this.newBook = true;
+      this.editMode = true;
+    }
+    console.log(this.newBook);
   }
 
   switchToEditMode(): void {
@@ -66,41 +83,46 @@ export class EditBookComponent implements OnInit {
     }
   }
 
-  // Vérifie si toutes les entrées importantes du formulaire sont remplies
   checkFormValidity(): void {
     this.isFormValid =
       Boolean(this.tempBook?.title) && Boolean(this.tempBook?.author);
   }
 
-  // Supprime le livre
   deleteBook() {
     if (this.selectedBook?.bookId) {
-      this.bookService.deleteBook(this.selectedBook.bookId)
-      .catch((error) => {
-        console.error("Error updating book:", error);
-      });
+      this.bookService
+        .deleteBook(this.selectedBook.bookId)
+        .catch((error) => {
+          console.error("Error updating book:", error);
+        });
     }
   }
 
-
-  //Enregistre les modification du livre
   saveModifications(): void {
-    if (this.tempBook && typeof this.tempBook.date === "string") {
-      // Convertir la date en chaîne de caractères en un objet Date
-      this.tempBook.date = new Date(this.tempBook.date);
-    }
-    this.editMode = false;
-    if (this.selectedBook !== this.tempBook) {
-      this.selectedBook = this.tempBook;
-      if (this.selectedBook) {
-        this.bookService
-          .updateBook(this.selectedBook)
-          .then(() => {
-            this.dialogRef.close({ book: this.selectedBook }); // Emit update event
-          })
-          .catch((error) => {
-            console.error("Error updating book:", error);
-          });
+    if (this.isFormValid) {
+      if (this.tempBook && typeof this.tempBook.date === "string") {
+        this.tempBook.date = new Date(this.tempBook.date);
+      }
+      this.editMode = false;
+      if (this.tempBook) {
+        if (this.newBook) {
+          this.bookService
+            .createBook(this.tempBook)
+            .then(() => {})
+            .catch((error) => {
+              console.error("Error creating book:", error);
+            });
+        } else {
+          this.bookService
+            .updateBook(this.tempBook)
+            .then(() => {
+              this.dialogRef.close({ book: this.selectedBook }); // Emit update event
+            })
+            .catch((error) => {
+              console.error("Error updating book:", error);
+            });
+        }
+        
       }
     }
   }

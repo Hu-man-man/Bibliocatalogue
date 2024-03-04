@@ -1,9 +1,2 @@
-<nav>
-    <div class="nav-wrapper teal">
-
-        <a href="#">
-            Bibliocatalogue
-        </a>
-    </div>
-</nav>
-<router-outlet />
+<app-Login></app-Login>
+@if(currentUser) {<router-outlet />}

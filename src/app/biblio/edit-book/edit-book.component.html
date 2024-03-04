@@ -1,14 +1,21 @@
-<h2 mat-dialog-title>{{tempBook?.title ? tempBook?.title : selectedBook?.title}}</h2>
+<h2 mat-dialog-title>
+  {{ tempBook?.title ? tempBook?.title : selectedBook?.title }}
+</h2>
 <mat-dialog-content>
   <ul>
     <li>
-      Titre : @if(editMode && tempBook) {<input [(ngModel)]="tempBook.title" (keyup)="checkFormValidity()"/>}
-      @else {<span>{{ selectedBook?.title }}</span
+      Titre : 
+      @if(editMode && tempBook) {<input
+        [(ngModel)]="tempBook.title"
+        (keyup)="checkFormValidity()"
+      />} @else {<span>{{ selectedBook?.title }}</span
       >}
     </li>
     <li>
-      Auteur : @if(editMode && tempBook) {<input
-        [(ngModel)]="tempBook.author" (keyup)="checkFormValidity()"
+      Auteur : 
+      @if(editMode && tempBook) {<input
+        [(ngModel)]="tempBook.author"
+        (keyup)="checkFormValidity()"
       />} @else {<span>{{ selectedBook?.author }}</span
       >}
     </li>
@@ -16,15 +23,15 @@
       Date de parution :
       <span>{{ selectedBook?.date | date : "mediumDate" }}</span> @if(editMode
       && tempBook) {<input
-        
         [ngModel]="tempBook.date | date : 'mediumDate'"
-        (ngModelChange)="onDateChange($event) "
+        (ngModelChange)="onDateChange($event)"
         type="date"
       />
       }
     </li>
     <li>
-      Tags : @if(editMode && tempBook) {<input [(ngModel)]="tempBook.tags" />}
+      Tags : 
+      @if(editMode && tempBook) {<input [(ngModel)]="tempBook.tags" />}
       @else {<span>{{ selectedBook?.tags }}</span
       >}
     </li>
@@ -32,17 +39,22 @@
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <!-- Bouton ne s'affiche que si le livre est dans la db -->
-  @if(editMode && selectedBook?.bookId) { 
-    <button mat-raised-button color="accent" (click)="deleteBook()">
+  @if(editMode && selectedBook?.bookId) {
+  <button mat-raised-button color="accent" (click)="deleteBook()">
     Supprimer Livre
-    </button>
-  }
-  @if(!editMode) {
+  </button>
+  } @if(!editMode) {
 
-
-    <button mat-raised-button color="accent" (click)="switchToEditMode()">
+  <button mat-raised-button color="accent" (click)="switchToEditMode()">
     Modifier livre
-    </button>
-  }@else{<button mat-raised-button color="accent" (click)="saveModifications()" [disabled]="!isFormValid">Enregistrer</button>}
+  </button>
+  }@else{<button
+    mat-raised-button
+    color="accent"
+    (click)="saveModifications()"
+    [disabled]="!isFormValid"
+  >
+    Enregistrer
+  </button>}
   <button mat-raised-button color="accent" mat-dialog-close>Fermer</button>
 </mat-dialog-actions>

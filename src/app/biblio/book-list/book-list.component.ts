@@ -4,12 +4,14 @@ import { BookService } from "../book.service";
 import { Auth } from "@angular/fire/auth";
 import { MatDialog } from "@angular/material/dialog";
 import { EditBookComponent } from "../edit-book/edit-book.component";
-import { DataBookService } from "../data-book.service";
+import { MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: "app-book-list",
   standalone: true,
-  imports: [EditBookComponent],
+  imports: [ MatButtonModule, MatDividerModule, MatIconModule],
   templateUrl: "./book-list.component.html",
 })
 export class BookListComponent implements OnInit {
@@ -20,7 +22,6 @@ export class BookListComponent implements OnInit {
     private bookService: BookService,
     private readonly auth: Auth,
     private dialog: MatDialog,
-    private dataBookService: DataBookService
   ) {}
 
   get currentUser() {
@@ -42,10 +43,16 @@ export class BookListComponent implements OnInit {
     this.selectedBook = book;
     console.log("Book selected " + this.selectedBook.title);
 
-    // Stocker la donnée à l'aide du service car MAT_DIALOG_DATA de angular marterials ne marche pas.
-    this.dataBookService.setData(book);
+    // Open the EditBookComponent with the selected book
+    this.dialog
+      .open(EditBookComponent, {
+        data: book, // Pass the selected book to the component
+      })
+      
+  }
 
-    this.dialog.open(EditBookComponent, {});
-    // modal.afterClosed
+  newBook() {
+    this.dialog.open(EditBookComponent, {}) // No data needed for creating a new book
   }
 }
+

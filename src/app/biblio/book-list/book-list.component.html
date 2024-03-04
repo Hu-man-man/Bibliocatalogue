@@ -1,23 +1,18 @@
+@if(currentUser){
+  <div>
+    <h5>Books de {{currentUser.displayName}}</h5>
+  </div>
+}
    <div>
-    <!-- <button mat-raised-button (click)="openDialog()">Pick one</button> -->
-     @for( book of bookList; track book.id) {
+     @for( book of bookList; track book.bookId) {
        <li>
          <a (click)="selectBook(book)">{{ book.title }}</a>
        </li>
      }
    </div>
    <div>
-    @if(selectedBook) { 
-      <div>
-        <h2>{{ selectedBook.title }}</h2>
-        <p>Author: {{ selectedBook.author }}</p>
-        <p>Date: {{ selectedBook.date }}</p>
-      </div>
-    }
-  </div>
-  @if(currentUser){
     <div>
-      <h2>Books de {{currentUser.displayName}}</h2>
+      <button mat-fab color="accent" aria-label="Ajouter un nouveau livre" (click)="newBook()">
+        <mat-icon>add</mat-icon>
+      </button>
     </div>
-  }
-  <app-edit-book></app-edit-book>
