@@ -1,34 +1,34 @@
-<mat-toolbar>
-  <span>Bibliocatalogue</span>
-  <span class="example-spacer"></span>
-  @if (currentUser) {
-    <div>
-      <button (click)="logout()" mat-raised-button color="accent">
-        Déconnexion
-      </button>
-    </div>
-  } @else {
-    <div >
-      <span>Se connecter avec Google :</span>
-      <button (click)="login()" mat-raised-button color="accent">login</button>
-    </div>
-  }
+<mat-toolbar class="place-content-between">
+      <div class="flex items-center">
+        <mat-icon matListItemIcon class="mr-2">book</mat-icon>
+        <span>Bibliocatalogue</span>
+      </div>
+      @if (currentUser) {
+        <div class="flex items-center">
+          <button (click)="logout()" mat-raised-button color="accent">
+            Déconnexion
+          </button>
+            <div class="flex border border-black bg-white h-10 w-10 overflow-hidden rounded-full ml-3">
+              <img
+                src="{{currentUser.photoURL}}"
+                alt="Photo"
+                width={200}
+                height={200}
+                class="object-contain"
+              />
+            </div>
+          </div>
+        
+      } @else {
+        <div >
+          <span class="pr-3">Se connecter avec Google :</span>
+          <button (click)="login()" mat-raised-button color="accent">login</button>
+        </div>
+      }
 </mat-toolbar>
-
-<!-- @if (currentUser) {
-  <div>
-    <button (click)="logout()" mat-raised-button color="accent">
-      Déconnexion
-    </button>
+@if (!currentUser){
+  <div class="flex flex-col w-full h-1/2 justify-center items-center">
+    <h1>Bienvenue sur Bibliocatalogue</h1>
+    <p class="text-lg">L'application pratique pour référencer les livres de votre bibliothèque.</p>
   </div>
-  <p>Bienvenue, {{currentUser.displayName}}. Vous êtes bien connecté</p>
-  <div>
-    <button (click)="navigate()" mat-raised-button color="accent">Ma liste de livre</button>
-  </div>
-} @else {
-  <div >
-    <button (click)="login()" mat-raised-button color="accent">login</button>
-    Se connecter avec Google
-  </div>
-
-} -->
+}

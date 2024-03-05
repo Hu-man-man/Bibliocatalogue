@@ -4,16 +4,14 @@
 <mat-dialog-content>
   <ul>
     <li>
-      Titre : 
-      @if(editMode && tempBook) {<input
+      Titre : @if(editMode && tempBook) {<input
         [(ngModel)]="tempBook.title"
         (keyup)="checkFormValidity()"
       />} @else {<span>{{ selectedBook?.title }}</span
       >}
     </li>
     <li>
-      Auteur : 
-      @if(editMode && tempBook) {<input
+      Auteur : @if(editMode && tempBook) {<input
         [(ngModel)]="tempBook.author"
         (keyup)="checkFormValidity()"
       />} @else {<span>{{ selectedBook?.author }}</span
@@ -30,8 +28,7 @@
       }
     </li>
     <li>
-      Tags : 
-      @if(editMode && tempBook) {<input [(ngModel)]="tempBook.tags" />}
+      Tags : @if(editMode && tempBook) {<input [(ngModel)]="tempBook.tags" />}
       @else {<span>{{ selectedBook?.tags }}</span
       >}
     </li>
@@ -54,7 +51,7 @@
     (click)="saveModifications()"
     [disabled]="!isFormValid"
   >
-    Enregistrer
-  </button>}
+    Enregistrer</button
+  >}
   <button mat-raised-button color="accent" mat-dialog-close>Fermer</button>
 </mat-dialog-actions>

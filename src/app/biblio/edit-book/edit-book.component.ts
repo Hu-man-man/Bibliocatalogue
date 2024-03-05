@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, SimpleChanges, Inject } from "@angular/core";
+import { Component, OnInit, Inject } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { Book } from "../book";
 import { BookService } from "../book.service";
@@ -12,7 +12,6 @@ import {
 } from "@angular/material/dialog";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatFormFieldModule } from "@angular/material/form-field";
-import { provideNativeDateAdapter } from "@angular/material/core";
 import { FormsModule } from "@angular/forms";
 import { MatIconModule } from "@angular/material/icon";
 import { MatDividerModule } from "@angular/material/divider";
@@ -103,6 +102,7 @@ export class EditBookComponent implements OnInit {
       if (this.tempBook && typeof this.tempBook.date === "string") {
         this.tempBook.date = new Date(this.tempBook.date);
       }
+      this.selectedBook = this.tempBook;
       this.editMode = false;
       if (this.tempBook) {
         if (this.newBook) {
