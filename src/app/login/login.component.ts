@@ -24,7 +24,7 @@ import { MatToolbarModule } from "@angular/material/toolbar";
     MatButtonModule,
     MatIconModule,
   ],
-  templateUrl: "./Login.component.html",
+  templateUrl: "./login.component.html",
   styles: ``,
 })
 export class LoginComponent {

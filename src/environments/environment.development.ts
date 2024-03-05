@@ -8,4 +8,3 @@ export const environment = {
         appId: "1:147169027323:web:0707de4663fd098451fc5e"
       }
 };
-        // https://bibliocatalogue-b35e7.web.app/

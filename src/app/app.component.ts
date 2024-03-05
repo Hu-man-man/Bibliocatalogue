@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Auth } from  '@angular/fire/auth';
-
-
 import { LoginComponent } from './login/login.component';
 
 @Component({
