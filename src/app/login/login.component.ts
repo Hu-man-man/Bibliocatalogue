@@ -40,7 +40,7 @@ export class LoginComponent {
       const result = await signInWithPopup(this.auth, provider);
       // Traiter les informations de l'utilisateur connecté
       console.log(result.user);
-      this.router.createUrlTree(["/", "book-list"]);
+      this.router.navigateByUrl('/book-list');
     } catch (error) {
       console.error(error);
     }
@@ -56,9 +56,4 @@ export class LoginComponent {
     }
   }
 
-  navigate() {
-    if (this.currentUser) {
-      this.router.navigate(["/book-list"]);
-    }
-  }
 }
