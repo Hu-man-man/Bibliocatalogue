@@ -4,40 +4,34 @@
 <mat-dialog-content>
   <ul>
     <li>
-      Titre : @if(editMode && tempBook) {<input
-        [(ngModel)]="tempBook.title"
-        (keyup)="checkFormValidity()"
-      />} @else {<span>{{ selectedBook?.title }}</span
-      >}
+      Titre :
+      @if(editMode && tempBook) { <input [(ngModel)]="tempBook.title" (keyup)="checkFormValidity()" /> }
+      @else { <span>{{ selectedBook?.title }}</span> }
     </li>
     <li>
-      Auteur : @if(editMode && tempBook) {<input
-        [(ngModel)]="tempBook.author"
-        (keyup)="checkFormValidity()"
-      />} @else {<span>{{ selectedBook?.author }}</span
-      >}
+      Auteur :
+      @if(editMode && tempBook) { <input [(ngModel)]="tempBook.author" (keyup)="checkFormValidity()" /> }
+      @else { <span>{{ selectedBook?.author }}</span> }
     </li>
     <li>
       Date de parution :
-      <span>{{ selectedBook?.date | date : "mediumDate" }}</span> @if(editMode
-      && tempBook) {<input
-        [ngModel]="tempBook.date | date : 'mediumDate'"
+      <span>{{ selectedBook?.date | date : "mediumDate" }}</span>
+      @if(editMode && tempBook) 
+      {<input [ngModel]="tempBook.date" type="date" 
         (ngModelChange)="onDateChange($event)"
-        type="date"
-      />
-      }
+      /> }
     </li>
     <li>
-      Tags : @if(editMode && tempBook) {<input [(ngModel)]="tempBook.tags" />}
-      @else {<span>{{ selectedBook?.tags }}</span
-      >}
+      Tags :
+      @if(editMode && tempBook) {<input [(ngModel)]="tempBook.tags" />}
+      @else {<span>{{ selectedBook?.tags }}</span>}
     </li>
   </ul>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <!-- Bouton ne s'affiche que si le livre est dans la db -->
   @if(editMode && selectedBook?.bookId) {
-  <button mat-raised-button color="accent" (click)="deleteBook()">
+  <button mat-raised-button color="accent" (click)="deleteBook() "mat-dialog-close>
     Supprimer Livre
   </button>
   } @if(!editMode) {

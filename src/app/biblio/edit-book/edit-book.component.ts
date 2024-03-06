@@ -71,22 +71,29 @@ export class EditBookComponent implements OnInit {
     console.log(this.newBook);
   }
 
+
+  // Bascule en mode édition
+
   switchToEditMode(): void {
-    this.editMode = true; // Basculer entre le mode édition et le mode affichage
+    this.editMode = true; 
     this.tempBook = this.selectedBook ? { ...this.selectedBook } : new Book();
   }
+
+  // Enregistre au fur et à mesure la valeur de la date dans tempBook
 
   onDateChange(value: string): void {
     if (this.tempBook) {
       this.tempBook.date = new Date(value);
     }
   }
+  
 
+  
   checkFormValidity(): void {
     this.isFormValid =
-      Boolean(this.tempBook?.title) && Boolean(this.tempBook?.author);
+    Boolean(this.tempBook?.title) && Boolean(this.tempBook?.author);
   }
-
+  
   deleteBook() {
     if (this.selectedBook?.bookId) {
       this.bookService
@@ -97,12 +104,14 @@ export class EditBookComponent implements OnInit {
     }
   }
 
+  
+
   saveModifications(): void {
+    
     if (this.isFormValid) {
-      if (this.tempBook && typeof this.tempBook.date === "string") {
-        this.tempBook.date = new Date(this.tempBook.date);
-      }
       this.selectedBook = this.tempBook;
+      console.log("this.selectedBook")
+      console.log(this.selectedBook)
       this.editMode = false;
       if (this.tempBook) {
         if (this.newBook) {
