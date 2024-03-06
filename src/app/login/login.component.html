@@ -8,7 +8,7 @@
           <button (click)="logout()" mat-raised-button color="accent">
             Déconnexion
           </button>
-            <div class="flex border border-black bg-white h-10 w-10 overflow-hidden rounded-full ml-3">
+            <div class="flex bg-white h-10 w-10 overflow-hidden rounded-full ml-3">
               <img
                 src="{{currentUser.photoURL}}"
                 alt="Photo"
@@ -20,8 +20,8 @@
           </div>
         
       } @else {
-        <div >
-          <span class="pr-3">Se connecter avec Google :</span>
+        <div class="flex">
+          <span class="pr-3 hidden md:block">Se connecter avec Google :</span>
           <button (click)="login()" mat-raised-button color="accent">login</button>
         </div>
       }
@@ -29,6 +29,6 @@
 @if (!currentUser){
   <div class="flex flex-col w-full h-1/2 justify-center items-center">
     <h1>Bienvenue sur Bibliocatalogue</h1>
-    <p class="text-lg">L'application pratique pour référencer les livres de votre bibliothèque.</p>
+    <p class="text-lg text-center mx-5">L'application pratique pour référencer les livres de votre bibliothèque.</p>
   </div>
 }

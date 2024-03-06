@@ -1,4 +1,4 @@
-<div class="w-full min-w-1/2 flex items-center justify-center">
+<div class="w-full flex items-center justify-center ">
   <div>
     <mat-list role="list">
       @if(bookList.length > 0) {
@@ -11,7 +11,7 @@
         <mat-icon matListItemIcon>book</mat-icon>
         <a
           (click)="selectBook(book)"
-          class="text-gray-600 hover:text-[#F5CF3D]"
+          class="text-gray-600 hover:text-[#F5CF3D] break-words"
           >{{ book.title }}</a
         >
       </mat-list-item>
