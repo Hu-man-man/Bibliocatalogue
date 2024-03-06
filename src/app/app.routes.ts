@@ -4,5 +4,5 @@ import { LoginComponent } from "./login/login.component";
 import { authGuard } from "./auth.guard";
 
 export const routes: Routes = [
-  { path: "book-list", /*canActivate: [authGuard],*/ component: BookListComponent },
+  { path: "book-list", /*canActivate: [authGuard],*/ loadChildren: () => import('./biblio/book.routes').then(m => m.routes) },
 ];
