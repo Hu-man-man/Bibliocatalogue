@@ -30,6 +30,10 @@ export class BookListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.refreshBookList();
+  }
+  
+  refreshBookList() {
     this.bookService
       .getBookListByUid()
       .then((books) => {
