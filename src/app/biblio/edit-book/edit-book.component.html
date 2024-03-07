@@ -14,7 +14,7 @@
       @else { <span>{{ selectedBook?.author }}</span> }
     </li>
     <li>
-      Date de parution :
+      Date de lecture :
       <span>{{ selectedBook?.date | date : "mediumDate" }}</span>
       @if(editMode && tempBook) 
       {<input [ngModel]="tempBook.date" type="date" 
