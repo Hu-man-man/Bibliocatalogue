@@ -33,6 +33,8 @@ export class BookListComponent implements OnInit {
     this.refreshBookList();
   }
   
+  // foncion qui récupère les livre de la personne connectée, et est utilisée pour actualiser l'affichage
+
   refreshBookList() {
     this.bookService
       .getBookListByUid()
@@ -44,20 +46,24 @@ export class BookListComponent implements OnInit {
       });
   }
 
+  // Ouvre EditBookComponent en traanméttant les infos du livre sélectionné
+
   selectBook(book: Book) {
     this.selectedBook = book;
-    console.log("Book selected " + this.selectedBook.title);
-
-    // Open the EditBookComponent with the selected book
-    this.dialog
-      .open(EditBookComponent, {
-        data: book, // Pass the selected book to the component
-      })
-      
+    const dialogRef = this.dialog.open(EditBookComponent, { data: book, })
+    dialogRef.afterClosed().subscribe(() => {
+      this.refreshBookList();
+      });
+        
   }
 
+  // Ouvre EditBookComponent sans paramètres
+
   newBook() {
-    this.dialog.open(EditBookComponent, {}) // No data needed for creating a new book
+    const dialogRef = this.dialog.open(EditBookComponent, {}) // No data needed for creating a new book
+    dialogRef.afterClosed().subscribe(() => {
+    this.refreshBookList();
+    });
   }
 }
 

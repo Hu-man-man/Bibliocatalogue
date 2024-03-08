@@ -34,6 +34,8 @@ export class LoginComponent {
     return this.auth.currentUser;
   }
 
+
+  
   async login() {
     try {
       const provider = new GoogleAuthProvider();
@@ -46,10 +48,12 @@ export class LoginComponent {
     }
   }
 
+
+  // Déconnecte l'utilisateur
+
   async logout() {
     try {
       await signOut(this.auth);
-      // Actions à réaliser après la déconnexion
       console.log("Utilisateur déconnecté");
     } catch (error) {
       console.error(error);

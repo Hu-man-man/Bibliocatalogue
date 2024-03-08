@@ -91,11 +91,11 @@ export class EditBookComponent implements OnInit {
     }
   }
 
+  // Assigne l'évoile sélectionnée à une note
 
   setRating (numberOfStars: number): void {
     if (this.tempBook && this.editMode) {
       this.tempBook.rating = numberOfStars
-      console.log(this.tempBook.rating)
     }
   }
 

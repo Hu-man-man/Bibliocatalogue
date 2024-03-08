@@ -22,8 +22,7 @@ export class BookService {
 
   async getBookListByUid(): Promise<Book[]> {
     try {
-      const uid = await new Promise((resolve, reject) => {
-        //Création d'une promesse pour attendre le chargement
+      const uid = await new Promise((resolve, reject) => { //Création d'une promesse pour attendre le chargement
 
         this.auth.onAuthStateChanged((user) => {
           if (user) {
