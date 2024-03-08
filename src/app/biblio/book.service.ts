@@ -17,22 +17,6 @@ import { Auth } from "@angular/fire/auth";
 export class BookService {
   constructor(private firestore: Firestore, private readonly auth: Auth) {}
 
-  // // Récupère toute la liste de Book dans la db
-
-  // async getBookList(): Promise<Book[]> {
-  //   try {
-  //     const querySnapshot = await getDocs(collection(this.firestore, "books")); // Fetch books from Firestore
-  //     const bookList = querySnapshot.docs.map((doc) => ({
-  //       bookId: doc.id, // Type assertion using spread operator
-  //       ...(doc.data() as Book),
-  //     }));
-
-  //     return bookList;
-  //   } catch (error) {
-  //     console.error("Error fetching books:", error);
-  //     throw error;
-  //   }
-  // }
 
   // Récupère la liste de book de l'user connecté
 
