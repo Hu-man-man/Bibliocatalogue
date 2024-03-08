@@ -25,11 +25,13 @@
       </div>
     </li>
     <li>
-      <!-- Implanter ici le systhème d'évaluation -->
         Évaluation :
-        <div class="flex">
-          @for(star of [1,2,3,4,5]; track star ) {
-            <mat-icon matListItemIcon class="">star</mat-icon>
+        <div class="flex ">
+          @for(star of stars; track star ) {
+            <mat-icon matListItemIcon 
+            (click)="setRating(star)"
+            class="{{star <= (tempBook?.rating ?? 0) ? 'text-[#F5CF3D]' : 'text-gray-200' }} {{editMode ? 'animate-spin': ''}}"
+            >star</mat-icon>
           }
       </div>
     </li>

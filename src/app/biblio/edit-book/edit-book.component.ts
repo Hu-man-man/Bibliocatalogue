@@ -43,6 +43,7 @@ export class EditBookComponent implements OnInit {
   newBook: boolean = false;
   new: Date | undefined;
   isFormValid: boolean = false;
+  stars: any[] = [];
 
   constructor(
     private bookService: BookService,
@@ -51,6 +52,8 @@ export class EditBookComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.stars = [1,2,3,4,5]
+
     // Vérifie si selectedBook existe, sinon crée un nouveau livre
     this.selectedBook = this.data as Book;
     if (this.selectedBook) {
@@ -62,14 +65,14 @@ export class EditBookComponent implements OnInit {
         title: "Nouveau livre",
         author: "",
         date: new Date(),
-        rating: 0,
+        rating: 1,
         tags: [],
         userId: "",
       };
       this.newBook = true;
       this.editMode = true;
+
     }
-    console.log(this.newBook);
   }
 
 
@@ -89,8 +92,11 @@ export class EditBookComponent implements OnInit {
   }
 
 
-  evaluation ( ) {
-
+  setRating (numberOfStars: number): void {
+    if (this.tempBook && this.editMode) {
+      this.tempBook.rating = numberOfStars
+      console.log(this.tempBook.rating)
+    }
   }
 
   // à la modification vérifie de les données importantes on étées saisies
