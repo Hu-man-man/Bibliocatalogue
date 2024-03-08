@@ -39,19 +39,19 @@ import { MatButtonModule } from "@angular/material/button";
 export class EditBookComponent implements OnInit {
   selectedBook: Book | undefined;
   tempBook: Book | undefined;
-  editMode: boolean = false; // Start in display mode
-  newBook: boolean = false; // Flag to differentiate between creating and editing
+  editMode: boolean = false;
+  newBook: boolean = false;
   new: Date | undefined;
   isFormValid: boolean = false;
 
   constructor(
     private bookService: BookService,
     private dialogRef: MatDialogRef<EditBookComponent>,
-    @Inject(MAT_DIALOG_DATA) private data: Book,
+    @Inject(MAT_DIALOG_DATA) private data: Book, // données du livre récupérées de book-list.component
   ) {}
 
   ngOnInit(): void {
-    // Check if selectedBook is provided for editing, otherwise initialize new book
+    // Vérifie si selectedBook existe, sinon crée un nouveau livre
     this.selectedBook = this.data as Book;
     if (this.selectedBook) {
       this.tempBook = { ...this.selectedBook };
@@ -60,8 +60,9 @@ export class EditBookComponent implements OnInit {
       this.tempBook = {
         bookId: "",
         title: "Nouveau livre",
-        date: new Date(),
         author: "",
+        date: new Date(),
+        rating: 0,
         tags: [],
         userId: "",
       };
@@ -86,14 +87,21 @@ export class EditBookComponent implements OnInit {
       this.tempBook.date = new Date(value);
     }
   }
-  
 
-  
+
+  evaluation ( ) {
+
+  }
+
+  // à la modification vérifie de les données importantes on étées saisies
+
   checkFormValidity(): void {
     this.isFormValid =
     Boolean(this.tempBook?.title) && Boolean(this.tempBook?.author);
   }
   
+  // fonction qui permet de supprimer un livre de la db
+
   deleteBook() {
     if (this.selectedBook?.bookId) {
       this.bookService
@@ -104,14 +112,12 @@ export class EditBookComponent implements OnInit {
     }
   }
 
-  
+  // Enregistre les modifications effectuées
 
   saveModifications(): void {
     
     if (this.isFormValid) {
       this.selectedBook = this.tempBook;
-      console.log("this.selectedBook")
-      console.log(this.selectedBook)
       this.editMode = false;
       if (this.tempBook) {
         if (this.newBook) {

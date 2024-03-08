@@ -2,28 +2,43 @@
   {{ tempBook?.title ? tempBook?.title : selectedBook?.title }}
 </h2>
 <mat-dialog-content>
-  <ul>
+  <ul class="*:p-1 *:m-1">
     <li>
       Titre :
-      @if(editMode && tempBook) { <input [(ngModel)]="tempBook.title" (keyup)="checkFormValidity()" /> }
+      @if(editMode && tempBook) { <input [(ngModel)]="tempBook.title" (keyup)="checkFormValidity()" class="bg-gray-200"/> }
       @else { <span>{{ selectedBook?.title }}</span> }
     </li>
     <li>
       Auteur :
-      @if(editMode && tempBook) { <input [(ngModel)]="tempBook.author" (keyup)="checkFormValidity()" /> }
+      @if(editMode && tempBook) { <input [(ngModel)]="tempBook.author" (keyup)="checkFormValidity()" class="bg-gray-200"/> }
       @else { <span>{{ selectedBook?.author }}</span> }
     </li>
     <li>
       Date de lecture :
-      <span>{{ selectedBook?.date | date : "mediumDate" }}</span>
-      @if(editMode && tempBook) 
-      {<input [ngModel]="tempBook.date" type="date" 
-        (ngModelChange)="onDateChange($event)"
-      /> }
+      <div>
+        <span>{{ selectedBook?.date | date : "mediumDate" }}</span>
+        @if(editMode && tempBook) 
+        {<input [ngModel]="tempBook.date" type="date" 
+          (ngModelChange)="onDateChange($event)"
+          class="bg-gray-200 ml-3"
+        /> }
+      </div>
+    </li>
+    <li>
+      <!-- Implanter ici le systhème d'évaluation -->
+        Évaluation :
+        <div class="flex">
+          @for(star of [1,2,3,4,5]; track star ) {
+            <mat-icon matListItemIcon class="">star</mat-icon>
+          }
+          <div  *ngFor="let rating of [1, 2, 3, 4, 5]" class="bg-gray-200">
+            <mat-icon matListItemIcon class="">star</mat-icon>
+          </div>
+      </div>
     </li>
     <li>
       Tags :
-      @if(editMode && tempBook) {<input [(ngModel)]="tempBook.tags" />}
+      @if(editMode && tempBook) {<input [(ngModel)]="tempBook.tags" class="bg-gray-200"/>}
       @else {<span>{{ selectedBook?.tags }}</span>}
     </li>
   </ul>

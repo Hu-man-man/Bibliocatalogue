@@ -84,7 +84,8 @@ export class BookService {
       const bookId = String(book.bookId);
       const bookRef = doc(this.firestore, "books", bookId);
 
-      await updateDoc(bookRef, JSON.parse(JSON.stringify(book)));
+      await 
+      updateDoc(bookRef, JSON.parse(JSON.stringify(book)));
     } catch (error) {
       console.error("Error updating book:", error);
       throw error;
