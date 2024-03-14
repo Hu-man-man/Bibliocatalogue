@@ -6,4 +6,5 @@ export class Book {
     rating: number | undefined;
     tags: string[] | undefined;
     userId: string | undefined;
+    comments: string | undefined;
 }

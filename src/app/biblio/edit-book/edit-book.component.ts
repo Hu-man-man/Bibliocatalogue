@@ -2,17 +2,12 @@ import { Component, OnInit, Inject } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { Book } from "../book";
 import { BookService } from "../book.service";
+import { FormsModule } from "@angular/forms";
 import {
-  MatDialogRef,
-  MatDialogTitle,
-  MatDialogContent,
-  MatDialogActions,
-  MatDialogClose,
-  MAT_DIALOG_DATA,
+  MatDialogRef, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, MAT_DIALOG_DATA,
 } from "@angular/material/dialog";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatFormFieldModule } from "@angular/material/form-field";
-import { FormsModule } from "@angular/forms";
 import { MatIconModule } from "@angular/material/icon";
 import { MatDividerModule } from "@angular/material/divider";
 import { MatButtonModule } from "@angular/material/button";
@@ -21,17 +16,7 @@ import { MatButtonModule } from "@angular/material/button";
   selector: "app-edit-book",
   standalone: true,
   imports: [
-    CommonModule,
-    MatDialogTitle,
-    MatDialogContent,
-    MatDialogActions,
-    MatDialogClose,
-    FormsModule,
-    MatFormFieldModule,
-    MatDatepickerModule,
-    MatButtonModule,
-    MatDividerModule,
-    MatIconModule,
+    CommonModule, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, FormsModule, MatFormFieldModule, MatDatepickerModule, MatButtonModule, MatDividerModule, MatIconModule,
   ],
   templateUrl: "./edit-book.component.html",
   styles: ``,
@@ -52,6 +37,7 @@ export class EditBookComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    
     this.stars = [1,2,3,4,5]
 
     // Vérifie si selectedBook existe, sinon crée un nouveau livre
@@ -68,6 +54,7 @@ export class EditBookComponent implements OnInit {
         rating: 1,
         tags: [],
         userId: "",
+        comments: "",
       };
       this.newBook = true;
       this.editMode = true;

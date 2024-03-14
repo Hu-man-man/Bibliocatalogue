@@ -40,6 +40,11 @@
       @if(editMode && tempBook) {<input [(ngModel)]="tempBook.tags" class="bg-gray-200"/>}
       @else {<span>{{ selectedBook?.tags }}</span>}
     </li>
+    <li>
+      Commentaires :
+      @if(editMode && tempBook) {<input [(ngModel)]="tempBook.comments" class="bg-gray-200"/>}
+      @else {<span>{{ selectedBook?.comments }}</span>}
+    </li>
   </ul>
 </mat-dialog-content>
 <mat-dialog-actions align="end">

@@ -1,4 +1,4 @@
-<div class="w-full flex items-center justify-center ">
+<!-- <div class="w-full flex items-center justify-center ">
   <div>
     <mat-list role="list">
       @if(bookList.length > 0) {
@@ -9,11 +9,23 @@
       @for( book of bookList; track book.bookId) {
       <mat-list-item role="listitem">
         <mat-icon matListItemIcon>book</mat-icon>
-        <a
-          (click)="selectBook(book)"
-          class="text-gray-600 hover:text-[#F5CF3D] break-words"
-          >{{ book.title }}</a
-        >
+        <div class="flex place-content-between">
+          <div
+            (click)="selectBook(book)"
+            class="text-gray-600 hover:text-[#F5CF3D] break-words"
+            >{{ book.title }}</div
+          >
+          <div>
+            @for(star of stars; track star ) {
+              @if(book.rating ? star <= book.rating: "") {
+                <mat-icon style="font-size: 14px;">
+                  star
+                </mat-icon>
+              }
+              
+            }
+          </div>
+        </div>
       </mat-list-item>
       }
     </mat-list>
@@ -31,5 +43,129 @@
       <h2 class="pl-5">Ajoutez votre premier livre</h2>
       }
     </div>
+  </div>
+</div> -->
+
+<div class="flex justify-center">
+  <div class="w-3/4 my-10">
+    <div class="flex place-content-between">
+      @if(bookList.length > 0) {
+      <div mat-subheader>
+        Liste de livre de {{ this.currentUser?.displayName }}
+      </div>
+      }
+      <button
+        mat-fab
+        color="accent"
+        aria-label="Ajouter un nouveau livre"
+        (click)="newBook()"
+        class="px-10"
+      >
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+    <table
+      mat-table
+      [dataSource]="bookList"
+      multiTemplateDataRows
+      class="mat-elevation-z8"
+    >
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef>Titre</th>
+        <td mat-cell *matCellDef="let element">{{ element.title }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef>Lecture</th>
+        <td mat-cell *matCellDef="let element" type="date">
+          {{ element.date | date : "mediumDate" }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="rating">
+        <th mat-header-cell *matHeaderCellDef>Note</th>
+        <td mat-cell *matCellDef="let element">
+          <span class="hidden lg:flex">
+            @for(star of stars; track star ) {
+              <mat-icon matListItemIcon 
+              class="{{star <= (element?.rating ?? 0) ? 'text-[#F5CF3D]' : 'text-gray-200' }}"
+              >star</mat-icon>
+            }
+          </span>
+          <span class="flex items-center lg:hidden">
+            {{ element.rating }}
+            <mat-icon class="mx-1 text-[#F5CF3D]">
+              star
+            </mat-icon></span
+          >
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="expand">
+        <th mat-header-cell *matHeaderCellDef aria-label="row actions">
+          &nbsp;
+        </th>
+        <td mat-cell *matCellDef="let element">
+          <button
+            mat-icon-button
+            aria-label="expand row"
+            (click)="
+              expandedElement = expandedElement === element ? null : element;
+              $event.stopPropagation()
+            "
+          >
+            @if (expandedElement === element) {
+            <mat-icon>keyboard_arrow_up</mat-icon>
+            } @else {
+            <mat-icon>keyboard_arrow_down</mat-icon>
+            }
+          </button>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="expandedDetail">
+        <td
+          mat-cell
+          *matCellDef="let element"
+          [attr.colspan]="columnsToDisplayWithExpand.length"
+        >
+          <div
+            [@detailExpand]="
+              element == expandedElement ? 'expanded' : 'collapsed'
+            "
+            class="overflow-hidden flex place-content-between"
+          >
+            <div class="min-h-11 w-full bg-slate-200 rounded m-2 p-2">
+              {{ element.comments }}
+            </div>
+            <div>
+              <button
+                mat-mini-fab
+                color="accent"
+                aria-label="Ajouter un nouveau livre"
+                (click)="selectBook(element)"
+                class="m-5"
+              >
+                <mat-icon>edit</mat-icon>
+              </button>
+            </div>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplayWithExpand"></tr>
+      <tr
+        mat-row
+        *matRowDef="let element; columns: columnsToDisplayWithExpand"
+        class="example-element-row"
+        [class.example-expanded-row]="expandedElement === element"
+        (click)="expandedElement = expandedElement === element ? null : element"
+      ></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: ['expandedDetail']"
+        class="example-detail-row"
+      ></tr>
+    </table>
   </div>
 </div>
