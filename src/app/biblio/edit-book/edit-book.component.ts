@@ -4,22 +4,40 @@ import { Book } from "../book";
 import { BookService } from "../book.service";
 import { FormsModule } from "@angular/forms";
 import {
-  MatDialogRef, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, MAT_DIALOG_DATA,
+  MatDialogRef,
+  MatDialogTitle,
+  MatDialogContent,
+  MatDialogActions,
+  MatDialogClose,
+  MAT_DIALOG_DATA,
 } from "@angular/material/dialog";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatIconModule } from "@angular/material/icon";
 import { MatDividerModule } from "@angular/material/divider";
 import { MatButtonModule } from "@angular/material/button";
-import { MatInputModule } from '@angular/material/input';
-import { provideNativeDateAdapter } from '@angular/material/core';
+import { MatInputModule } from "@angular/material/input";
+import { provideNativeDateAdapter } from "@angular/material/core";
+import { MatSelectModule } from "@angular/material/select";
 
 @Component({
   selector: "app-edit-book",
   standalone: true,
   providers: [provideNativeDateAdapter()],
   imports: [
-    CommonModule, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, FormsModule, MatFormFieldModule, MatDatepickerModule, MatButtonModule, MatDividerModule, MatIconModule,  MatInputModule,
+    CommonModule,
+    MatDialogTitle,
+    MatDialogContent,
+    MatDialogActions,
+    MatDialogClose,
+    FormsModule,
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatButtonModule,
+    MatDividerModule,
+    MatIconModule,
+    MatInputModule,
+    MatSelectModule,
   ],
   templateUrl: "./edit-book.component.html",
   styles: ``,
@@ -36,7 +54,7 @@ export class EditBookComponent implements OnInit {
   constructor(
     private bookService: BookService,
     private dialogRef: MatDialogRef<EditBookComponent>,
-    @Inject(MAT_DIALOG_DATA) private data: Book, // données du livre récupérées de book-list.component
+    @Inject(MAT_DIALOG_DATA) private data: Book // données du livre récupérées de book-list.component
   ) {
     this.tempBook = {
       bookId: "",
@@ -51,8 +69,7 @@ export class EditBookComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
-    this.stars = [1,2,3,4,5]
+    this.stars = [1, 2, 3, 4, 5];
 
     // Vérifie si selectedBook existe, sinon crée un nouveau livre
     this.selectedBook = this.data as Book;
@@ -62,15 +79,13 @@ export class EditBookComponent implements OnInit {
     } else {
       this.newBook = true;
       this.editMode = true;
-
     }
   }
-
 
   // Bascule en mode édition
 
   switchToEditMode(): void {
-    this.editMode = true; 
+    this.editMode = true;
     this.tempBook = this.selectedBook ? { ...this.selectedBook } : new Book();
   }
 
@@ -84,9 +99,9 @@ export class EditBookComponent implements OnInit {
 
   // Assigne l'évoile sélectionnée à une note
 
-  setRating (numberOfStars: number): void {
+  setRating(numberOfStars: number): void {
     if (this.tempBook && this.editMode) {
-      this.tempBook.rating = numberOfStars
+      this.tempBook.rating = numberOfStars;
     }
   }
 
@@ -94,25 +109,27 @@ export class EditBookComponent implements OnInit {
 
   checkFormValidity(): void {
     this.isFormValid =
-    Boolean(this.tempBook?.title) && Boolean(this.tempBook?.author);
+      Boolean(this.tempBook?.title) &&
+      Boolean(this.tempBook?.author) &&
+      Boolean(this.tempBook?.comments) &&
+      Boolean(this.tempBook?.rating) &&
+      Boolean(this.tempBook?.tags) &&
+      Boolean(this.tempBook?.comments)
   }
-  
+
   // fonction qui permet de supprimer un livre de la db
 
   deleteBook() {
     if (this.selectedBook?.bookId) {
-      this.bookService
-        .deleteBook(this.selectedBook.bookId)
-        .catch((error) => {
-          console.error("Error updating book:", error);
-        });
+      this.bookService.deleteBook(this.selectedBook.bookId).catch((error) => {
+        console.error("Error updating book:", error);
+      });
     }
   }
 
   // Enregistre les modifications effectuées
 
   saveModifications(): void {
-    
     if (this.isFormValid) {
       this.selectedBook = this.tempBook;
       this.editMode = false;
@@ -134,7 +151,6 @@ export class EditBookComponent implements OnInit {
               console.error("Error updating book:", error);
             });
         }
-        
       }
     }
   }

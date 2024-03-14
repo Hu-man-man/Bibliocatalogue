@@ -81,63 +81,102 @@
   {{ tempBook?.title ? tempBook?.title : selectedBook?.title }}
 </h2>
 <mat-dialog-content>
-  <ul class="">
+  <ul>
     <li>
       <mat-form-field>
         <mat-label>Titre :</mat-label>
-        @if(tempBook) {<input matInput [(ngModel)]="tempBook.title" [disabled]="!(editMode && tempBook)">}
+        @if(tempBook) {<input
+          matInput
+          [(ngModel)]="tempBook.title"
+          [disabled]="!(editMode && tempBook)"
+          (keyup)="checkFormValidity()"
+        />}
       </mat-form-field>
     </li>
     <li>
       <mat-form-field>
         <mat-label>Auteur :</mat-label>
-        @if(tempBook) {<input matInput [(ngModel)]="tempBook.author" [disabled]="!(editMode && tempBook)">}
+        @if(tempBook) {<input
+          matInput
+          [(ngModel)]="tempBook.author"
+          [disabled]="!(editMode && tempBook)"
+          (keyup)="checkFormValidity()"
+        />}
       </mat-form-field>
     </li>
     <li>
-      
       <mat-form-field>
         <mat-label>Date de lecture :</mat-label>
-        <input matInput [matDatepicker]="picker" [ngModel]="tempBook?.date" (ngModelChange)="onDateChange($event)" [disabled]="!(editMode && tempBook)">
+        <input
+          matInput
+          [matDatepicker]="picker"
+          [ngModel]="tempBook?.date"
+          (ngModelChange)="onDateChange($event)"
+          [disabled]="!(editMode && tempBook)"
+        />
         <mat-hint>MM/DD/YYYY</mat-hint>
-        <mat-datepicker #picker ></mat-datepicker>
-        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="picker"
+        ></mat-datepicker-toggle>
       </mat-form-field>
     </li>
     <li>
       <div class="m-3">
         Évaluation :
-        <div class="flex ">
+        <div class="flex">
           @for(star of stars; track star ) {
-            <mat-icon matListItemIcon 
+          <mat-icon
+            matListItemIcon
             (click)="setRating(star)"
-            class="{{star <= (tempBook?.rating ?? 0) ? 'text-[#F5CF3D]' : 'text-gray-200' }} {{editMode ? 'animate-spin': ''}}"
-            >star</mat-icon>
+            class="{{
+              star <= (tempBook?.rating ?? 0)
+                ? 'text-[#F5CF3D]'
+                : 'text-gray-200'
+            }} {{ editMode ? 'animate-spin' : '' }}"
+            (keyup)="checkFormValidity()"
+            >star</mat-icon
+          >
           }
-      </div>
+        </div>
       </div>
     </li>
     <li>
       <mat-form-field>
         <mat-label>Tags :</mat-label>
-        @if(tempBook) {<input matInput [(ngModel)]="tempBook.tags" [disabled]="!(editMode && tempBook)">}
+        @if(tempBook) {<input
+          matInput
+          [(ngModel)]="tempBook.tags"
+          [disabled]="!(editMode && tempBook)"
+          (keyup)="checkFormValidity()"
+        />}
         <mat-hint>Séparez vos tags d'une virgule</mat-hint>
       </mat-form-field>
     </li>
     <li>
       <mat-form-field>
         <mat-label>Commentaire :</mat-label>
-        @if(tempBook) {<textarea matInput [(ngModel)]="tempBook.comments" [disabled]="!(editMode && tempBook)"></textarea>}
+        @if(tempBook) {<textarea
+          matInput
+          [(ngModel)]="tempBook.comments"
+          [disabled]="!(editMode && tempBook)"
+          (keyup)="checkFormValidity()"
+        ></textarea
+        >}
       </mat-form-field>
     </li>
-    
-    
   </ul>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <!-- Bouton ne s'affiche que si le livre est dans la db -->
   @if(editMode && selectedBook?.bookId) {
-  <button mat-raised-button color="accent" (click)="deleteBook() "mat-dialog-close>
+  <button
+    mat-raised-button
+    color="accent"
+    (click)="deleteBook()"
+    mat-dialog-close
+  >
     Supprimer Livre
   </button>
   } @if(!editMode) {
