@@ -11,12 +11,15 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatIconModule } from "@angular/material/icon";
 import { MatDividerModule } from "@angular/material/divider";
 import { MatButtonModule } from "@angular/material/button";
+import { MatInputModule } from '@angular/material/input';
+import { provideNativeDateAdapter } from '@angular/material/core';
 
 @Component({
   selector: "app-edit-book",
   standalone: true,
+  providers: [provideNativeDateAdapter()],
   imports: [
-    CommonModule, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, FormsModule, MatFormFieldModule, MatDatepickerModule, MatButtonModule, MatDividerModule, MatIconModule,
+    CommonModule, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, FormsModule, MatFormFieldModule, MatDatepickerModule, MatButtonModule, MatDividerModule, MatIconModule,  MatInputModule,
   ],
   templateUrl: "./edit-book.component.html",
   styles: ``,
@@ -34,7 +37,18 @@ export class EditBookComponent implements OnInit {
     private bookService: BookService,
     private dialogRef: MatDialogRef<EditBookComponent>,
     @Inject(MAT_DIALOG_DATA) private data: Book, // données du livre récupérées de book-list.component
-  ) {}
+  ) {
+    this.tempBook = {
+      bookId: "",
+      title: "Nouveau livre",
+      author: "",
+      date: new Date(),
+      rating: 1,
+      tags: [],
+      userId: "",
+      comments: "",
+    };
+  }
 
   ngOnInit(): void {
     
@@ -46,16 +60,6 @@ export class EditBookComponent implements OnInit {
       this.tempBook = { ...this.selectedBook };
       this.newBook = false;
     } else {
-      this.tempBook = {
-        bookId: "",
-        title: "Nouveau livre",
-        author: "",
-        date: new Date(),
-        rating: 1,
-        tags: [],
-        userId: "",
-        comments: "",
-      };
       this.newBook = true;
       this.editMode = true;
 
