@@ -104,7 +104,7 @@
         />}
       </mat-form-field>
     </li>
-    <li class="flex gap-3">
+    <li class="flex flex-col sm:flex-row gap-3">
       <mat-form-field class="w-36 h-20">
         <mat-label>Date de lecture :</mat-label>
         <input
@@ -122,14 +122,14 @@
         ></mat-datepicker-toggle>
       </mat-form-field>
       <div
-        class="px-3 pt-2 mb-10 border-b rounded-t-md w-36 pb-2 text-xs {{
+        class="px-3 pt-2 mb-5 sm:mb-10 border-b rounded-t-md w-36 pb-2 text-xs {{
           editMode
             ? 'bg-[#F5F5F5]  hover:bg-[#ECECEC] hover:border-black border-gray-400 text-gray-500'
             : 'bg-[#FAFAFA] border-[#EBEBEB] text-gray-400'
         }}"
       >
         Évaluation :
-        <div class="flex pt-1">
+        <div class="flex flex-wrap pt-1">
           @for(star of stars; track star ) {
           <mat-icon
             matListItemIcon
@@ -146,7 +146,7 @@
     </li>
     <li></li>
     <li>
-      <mat-form-field>
+      <mat-form-field class="mb-2">
         <mat-label>Tags :</mat-label>
         @if(tempBook) {<input
           matInput
