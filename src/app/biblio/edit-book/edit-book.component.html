@@ -104,8 +104,8 @@
         />}
       </mat-form-field>
     </li>
-    <li>
-      <mat-form-field>
+    <li class="flex gap-3">
+      <mat-form-field class="w-36 h-20">
         <mat-label>Date de lecture :</mat-label>
         <input
           matInput
@@ -121,20 +121,22 @@
           [for]="picker"
         ></mat-datepicker-toggle>
       </mat-form-field>
-    </li>
-    <li>
-      <div class="m-3">
+      <div
+        class="px-3 pt-2 mb-10 border-b rounded-t-md w-36 pb-2 text-xs {{
+          editMode
+            ? 'bg-[#F5F5F5]  hover:bg-[#ECECEC] hover:border-black border-gray-400 text-gray-500'
+            : 'bg-[#FAFAFA] border-[#EBEBEB] text-gray-400'
+        }}"
+      >
         Évaluation :
-        <div class="flex">
+        <div class="flex pt-1">
           @for(star of stars; track star ) {
           <mat-icon
             matListItemIcon
             (click)="setRating(star)"
             class="{{
-              star <= (tempBook?.rating ?? 0)
-                ? 'text-[#F5CF3D]'
-                : 'text-gray-200'
-            }} {{ editMode ? 'animate-spin' : '' }}"
+              star <= (tempBook?.rating ?? 0) ? 'text-[#F5CF3D]' : 'text-black'
+            }} {{ editMode ? 'animate-spin-slow' : '' }}"
             (keyup)="checkFormValidity()"
             >star</mat-icon
           >
@@ -142,6 +144,7 @@
         </div>
       </div>
     </li>
+    <li></li>
     <li>
       <mat-form-field>
         <mat-label>Tags :</mat-label>
@@ -151,7 +154,7 @@
           [disabled]="!(editMode && tempBook)"
           (keyup)="checkFormValidity()"
         />}
-        <mat-hint>Séparez vos tags d'une virgule</mat-hint>
+        <mat-hint>Tag1, Tag2, ...</mat-hint>
       </mat-form-field>
     </li>
     <li>
@@ -168,7 +171,7 @@
     </li>
   </ul>
 </mat-dialog-content>
-<mat-dialog-actions align="end">
+<mat-dialog-actions align="end" class="*:mt-1">
   <!-- Bouton ne s'affiche que si le livre est dans la db -->
   @if(editMode && selectedBook?.bookId) {
   <button
@@ -192,5 +195,7 @@
   >
     Enregistrer</button
   >}
-  <button mat-raised-button color="accent" mat-dialog-close>Fermer</button>
+  <button mat-raised-button color="accent" mat-dialog-close>
+    {{ editMode ? "Annuler" : "Fermer" }}
+  </button>
 </mat-dialog-actions>
