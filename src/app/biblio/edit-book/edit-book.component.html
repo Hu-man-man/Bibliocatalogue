@@ -1,82 +1,3 @@
-<!-- <h2 mat-dialog-title>
-  {{ tempBook?.title ? tempBook?.title : selectedBook?.title }}
-</h2>
-<mat-dialog-content>
-  <ul class="*:p-1 *:m-1">
-    <li>
-      Titre :
-      @if(editMode && tempBook) { <input [(ngModel)]="tempBook.title" (keyup)="checkFormValidity()" class="bg-gray-200"/> }
-      @else { <span>{{ selectedBook?.title }}</span> }
-    </li>
-    <li>
-      Auteur :
-      @if(editMode && tempBook) { <input [(ngModel)]="tempBook.author" (keyup)="checkFormValidity()" class="bg-gray-200"/> }
-      @else { <span>{{ selectedBook?.author }}</span> }
-    </li>
-    <li>
-      Date de lecture :
-      <div>
-        <span>{{ selectedBook?.date | date : "mediumDate" }}</span>
-        @if(editMode && tempBook) 
-        {<input [ngModel]="tempBook.date" type="date" 
-          (ngModelChange)="onDateChange($event)"
-          class="bg-gray-200 ml-3"
-        /> }
-      </div>
-    </li>
-    <li>
-        Évaluation :
-        <div class="flex ">
-          @for(star of stars; track star ) {
-            <mat-icon matListItemIcon 
-            (click)="setRating(star)"
-            class="{{star <= (tempBook?.rating ?? 0) ? 'text-[#F5CF3D]' : 'text-gray-200' }} {{editMode ? 'animate-spin': ''}}"
-            >star</mat-icon>
-          }
-      </div>
-    </li>
-    <li>
-      Tags :
-      @if(editMode && tempBook) {<input [(ngModel)]="tempBook.tags" class="bg-gray-200"/>}
-      @else {<span>{{ selectedBook?.tags }}</span>}
-    </li>
-    <li>
-      Commentaires :
-      @if(editMode && tempBook) {<input [(ngModel)]="tempBook.comments" class="bg-gray-200"/>}
-      @else {<span>{{ selectedBook?.comments }}</span>}
-    </li>
-    <li>
-      <mat-form-field>
-        <mat-label>Choose a date</mat-label>
-        <input matInput [matDatepicker]="picker" disabled="{{editMode && tempBook ? false : true}}">
-        <mat-hint>MM/DD/YYYY</mat-hint>
-        <mat-datepicker #picker ></mat-datepicker>
-        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-      </mat-form-field>
-    </li>
-  </ul>
-</mat-dialog-content>
-<mat-dialog-actions align="end">
-  @if(editMode && selectedBook?.bookId) {
-  <button mat-raised-button color="accent" (click)="deleteBook() "mat-dialog-close>
-    Supprimer Livre
-  </button>
-  } @if(!editMode) {
-
-  <button mat-raised-button color="accent" (click)="switchToEditMode()">
-    Modifier livre
-  </button>
-  }@else{<button
-    mat-raised-button
-    color="accent"
-    (click)="saveModifications()"
-    [disabled]="!isFormValid"
-  >
-    Enregistrer</button
-  >}
-  <button mat-raised-button color="accent" mat-dialog-close>Fermer</button>
-</mat-dialog-actions> -->
-
 <h2 mat-dialog-title>
   {{ tempBook?.title ? tempBook?.title : selectedBook?.title }}
 </h2>
@@ -137,7 +58,6 @@
             class="{{
               star <= (tempBook?.rating ?? 0) ? 'text-[#F5CF3D]' : 'text-black'
             }} {{ editMode ? 'animate-spin-slow' : '' }}"
-            (keyup)="checkFormValidity()"
             >star</mat-icon
           >
           }
@@ -152,7 +72,6 @@
           matInput
           [(ngModel)]="tempBook.tags"
           [disabled]="!(editMode && tempBook)"
-          (keyup)="checkFormValidity()"
         />}
         <mat-hint>Tag1, Tag2, ...</mat-hint>
       </mat-form-field>
@@ -164,7 +83,6 @@
           matInput
           [(ngModel)]="tempBook.comments"
           [disabled]="!(editMode && tempBook)"
-          (keyup)="checkFormValidity()"
         ></textarea
         >}
       </mat-form-field>
@@ -191,7 +109,7 @@
     mat-raised-button
     color="accent"
     (click)="saveModifications()"
-    [disabled]="!isFormValid"
+    [disabled]="!(tempBook?.title && tempBook?.author)"
   >
     Enregistrer</button
   >}

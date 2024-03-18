@@ -110,11 +110,7 @@ export class EditBookComponent implements OnInit {
   checkFormValidity(): void {
     this.isFormValid =
       Boolean(this.tempBook?.title) &&
-      Boolean(this.tempBook?.author) &&
-      Boolean(this.tempBook?.comments) &&
-      Boolean(this.tempBook?.rating) &&
-      Boolean(this.tempBook?.tags) &&
-      Boolean(this.tempBook?.comments)
+      Boolean(this.tempBook?.author)
   }
 
   // fonction qui permet de supprimer un livre de la db
