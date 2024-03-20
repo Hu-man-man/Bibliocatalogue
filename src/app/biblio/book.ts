@@ -1,10 +1,10 @@
-export class Book {
-    bookId: string | undefined;
-    title: string | undefined;
-    author: string | undefined;
-    date: Date | undefined;
-    rating: number | undefined;
-    tags: string[] | undefined;
-    userId: string | undefined;
-    comments: string | undefined;
-}
+export interface Book {
+    bookId?: string;
+    title?: string;
+    author?: string;
+    date?: Date;
+    rating?: number;
+    tags?: string[];
+    userId?: string;
+    comments?: string;
+  }

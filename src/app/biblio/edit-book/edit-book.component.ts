@@ -86,7 +86,6 @@ export class EditBookComponent implements OnInit {
 
   switchToEditMode(): void {
     this.editMode = true;
-    this.tempBook = this.selectedBook ? { ...this.selectedBook } : new Book();
   }
 
   // Enregistre au fur et à mesure la valeur de la date dans tempBook

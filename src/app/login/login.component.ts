@@ -34,7 +34,7 @@ export class LoginComponent {
     return this.auth.currentUser;
   }
 
-
+  // Connecte l'utilisateur
   
   async login() {
     try {
