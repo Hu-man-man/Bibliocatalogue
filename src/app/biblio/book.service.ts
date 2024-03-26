@@ -9,21 +9,22 @@ import {
   query,
   where,
 } from "@angular/fire/firestore";
+import { BehaviorSubject } from 'rxjs';
 import { Auth } from "@angular/fire/auth";
 
 @Injectable({
   providedIn: "root",
 })
 export class BookService {
+
+  private bookListSubject = new BehaviorSubject<Book[]>([]); // BehaviorSubject Observable et un Observateur, emet la dernière valeur à ses observateurs lorsqu’ils s’abonnent.
+  bookList$ = this.bookListSubject.asObservable();
+
   constructor(private firestore: Firestore, private readonly auth: Auth) {}
 
-
-  // Récupère la liste de book de l'user connecté
-  
-  async getBookListByUid(): Promise<Book[]> {
+  async getBookListByUid(): Promise<void> {
     try {
-      const uid = await new Promise((resolve, reject) => { //Création d'une promesse pour attendre le chargement
-
+      const uid = await new Promise((resolve, reject) => {
         this.auth.onAuthStateChanged((user) => {
           if (user) {
             resolve(user.uid);
@@ -38,7 +39,6 @@ export class BookService {
       );
       const bookList = querySnapshot.docs.map((doc) => {
         const data = doc.data() as Book;
-        // Convertir le timestamp en date
         if (data.date instanceof Timestamp) {
           data.date = data.date.toDate();
         }
@@ -48,12 +48,13 @@ export class BookService {
         };
       });
 
-      return bookList;
+      this.bookListSubject.next(bookList);
     } catch (error) {
       console.error("Error fetching books:", error);
       throw error;
     }
   }
+
 
   // Modifier les informations d'un livre
 
