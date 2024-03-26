@@ -9,6 +9,7 @@ import {
 import { CommonModule } from "@angular/common";
 import { Book } from "../book";
 import { BookService } from "../book.service";
+import { LogComponent } from "../../log/log.component";
 import { Auth } from "@angular/fire/auth";
 import { MatDialog } from "@angular/material/dialog";
 import { EditBookComponent } from "../edit-book/edit-book.component";
@@ -22,6 +23,7 @@ import { MatTableModule } from "@angular/material/table";
   selector: "app-book-list",
   standalone: true,
   imports: [
+    LogComponent,
     MatButtonModule,
     MatDividerModule,
     MatIconModule,
