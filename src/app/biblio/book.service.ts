@@ -19,35 +19,6 @@ export class BookService {
 
 
   // Récupère la liste de book de l'user connecté
-
-  // async getBookListByUid(): Promise<Book[]> {
-  //   try {
-  //     const uid = await new Promise((resolve, reject) => { //Création d'une promesse pour attendre le chargement
-
-  //       this.auth.onAuthStateChanged((user) => {
-  //         if (user) {
-  //           resolve(user.uid);
-  //         } else {
-  //           reject("User not authenticated");
-  //         }
-  //       });
-  //     });
-
-  //     const querySnapshot = await getDocs(
-  //       query(collection(this.firestore, "books"), where("userId", "==", uid))
-  //     );
-  //     const bookList = querySnapshot.docs.map((doc) => {
-  //       const data = doc.data() as Book;
-  //       // Convertir le timestamp en date
-  //       if (data.date instanceof Timestamp) {
-  //         data.date = data.date.toDate();
-  //       }
-  //       data.bookId = doc.id;
-  //       return {
-  //         ...data,
-  //       };
-  //     });
-
   
   async getBookListByUid(): Promise<Book[]> {
     try {

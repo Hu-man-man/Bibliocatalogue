@@ -94,6 +94,7 @@ export class EditBookComponent implements OnInit {
     if (this.tempBook) {
       this.tempBook.date = new Date(value);
     }
+    this.checkFormValidity()
   }
 
   // Assigne l'évoile sélectionnée à une note
@@ -102,6 +103,7 @@ export class EditBookComponent implements OnInit {
     if (this.tempBook && this.editMode) {
       this.tempBook.rating = numberOfStars;
     }
+    this.checkFormValidity()
   }
 
   // à la modification vérifie de les données importantes on étées saisies
@@ -109,7 +111,11 @@ export class EditBookComponent implements OnInit {
   checkFormValidity(): void {
     this.isFormValid =
       Boolean(this.tempBook?.title) &&
-      Boolean(this.tempBook?.author)
+      Boolean(this.tempBook?.author) &&
+      Boolean(this.tempBook?.rating) &&
+      Boolean(this.tempBook?.date) &&
+      Boolean(this.tempBook?.tags) &&
+      Boolean(this.tempBook?.tags)
   }
 
   // fonction qui permet de supprimer un livre de la db
@@ -140,7 +146,7 @@ export class EditBookComponent implements OnInit {
           this.bookService
             .updateBook(this.tempBook)
             .then(() => {
-              this.dialogRef.close({ book: this.selectedBook }); // Emit update event
+              this.dialogRef.close({ book: this.selectedBook });
             })
             .catch((error) => {
               console.error("Error updating book:", error);

@@ -72,6 +72,7 @@
           matInput
           [(ngModel)]="tempBook.tags"
           [disabled]="!(editMode && tempBook)"
+          (keyup)="checkFormValidity()"
         />}
         <mat-hint>Tag1, Tag2, ...</mat-hint>
       </mat-form-field>
@@ -83,6 +84,7 @@
           matInput
           [(ngModel)]="tempBook.comments"
           [disabled]="!(editMode && tempBook)"
+          (keyup)="checkFormValidity()"
         ></textarea
         >}
       </mat-form-field>
@@ -105,14 +107,16 @@
   <button mat-raised-button color="accent" (click)="switchToEditMode()">
     Modifier livre
   </button>
-  }@else{<button
+  }@else{
+  <button
     mat-raised-button
     color="accent"
     (click)="saveModifications()"
-    [disabled]="!(tempBook?.title && tempBook?.author)"
+    [disabled]="!isFormValid"
   >
-    Enregistrer</button
-  >}
+    Enregistrer
+  </button>
+  }
   <button mat-raised-button color="accent" mat-dialog-close>
     {{ editMode ? "Annuler" : "Fermer" }}
   </button>
